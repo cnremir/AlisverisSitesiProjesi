@@ -1,0 +1,34 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.konteyner {
+    display: flex;
+    height: 100vh;
+}
+
+.yan-menu {
+    width: 20%;
+    border-right: 2px solid black;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-ögesi {
+    padding: 20px;
+    border-bottom: 2px solid black;
+    text-align: center;
+    font-weight: bold;
+}
+
+.ana-içerik {
+    flex-grow: 1;
+    background-color: white;
+    padding: 20px;
+}

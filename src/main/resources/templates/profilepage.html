@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="'Example Page'"></title>
+  <link rel="stylesheet" th:href="@{/css/profile.css}">
+  <style>
+    body {
+      padding-top: 70px; /* Navbar'ın yüksekliğini hesaba katarak padding ayarladık */
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    .profile-container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 20px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+
+    .tab-container {
+      display: flex;
+    }
+
+    .tabs {
+      width: 25%;
+      padding: 10px;
+      background-color: #f4f4f4;
+      border-right: 1px solid #ccc;
+      text-align: left;
+    }
+
+    .tab-content {
+      width: 75%;
+      padding: 20px;
+    }
+
+    .tab {
+      padding: 10px;
+      cursor: pointer;
+      background-color: #e0e0e0;
+      margin-bottom: 5px;
+      text-align: center;
+      border-radius: 4px;
+    }
+
+    .tab:hover {
+      background-color: #d0d0d0;
+    }
+
+    .tab.active {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .btn {
+      padding: 10px 15px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    /* homePage.css */
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px;
+    }
+
+    .filter-box {
+      flex: 1;
+      border: 1px solid #ccc; /* Kalınlık düşürüldü */
+      padding: 20px;
+      margin-right: 20px;
+    }
+
+    .filter-box h2 {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+
+    .products-section h2 {
+      margin-bottom: 20px;
+    }
+
+    .product-box {
+      background-color: white;
+      border: 1px solid #ddd; /* Kalınlık düşürüldü */
+      padding: 15px;
+      margin: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: calc(33.333% - 20px); /* Üçlü dizilim için genişlik ayarlandı */
+      box-sizing: border-box;
+    }
+
+    .product-img {
+      width: 100%;
+      height: auto;
+      max-width: 200px;
+    }
+
+    .product-name {
+      margin-top: 10px;
+      font-size: 18px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .product-name:hover {
+      background-color: #0056b3;
+    }
+    /* homePage.css */
+
+
+
+
+
+    .remaining-time {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #333;
+      font-weight: bold;
+    }
+
+    /* Ürünlerin her satırda 3'lü dizilimde görünmesi için grid ayarı */
+    .products-section {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    #remaining-time {
+      color: #dc3545; /* Kalan süreyi kırmızı renkle vurguluyoruz */
+      font-weight: bold; /* Sürenin kalın görünmesini sağlıyoruz */
+    }
+    /* Genel Filtreleme Bölümü */
+    .filter-section {
+      width: 250px; /* Filtre bölümünün genişliği */
+      padding: 20px;
+      background-color: #f9f9f9; /* Arka plan rengi */
+      border: 1px solid #ddd; /* Çerçeve rengi */
+      border-radius: 10px; /* Köşeleri yuvarlama */
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Hafif gölge */
+    }
+    .label-container {
+      display: flex;
+      justify-content: flex-end; /* Sağa yaslar */
+      width: 100%; /* Konteyneri tam genişlik yapar */
+    }
+
+    .new-label {
+      font-size: 14px;
+      color: white;
+      background-color: #28a745;
+      padding: 10px 15px;
+      border-radius: 5px;
+      text-align: center;
+      border: 2px solid #1e7e34;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+
+
+    .filter-section h2 {
+      font-size: 1.5em;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    /* Filtre Elemanları */
+    .filter-item {
+      margin-bottom: 20px;
+    }
+
+    .filter-item label {
+      font-weight: bold;
+      font-size: 1em;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    .filter-item input[type="text"],
+    .filter-item input[type="number"],
+    .filter-item input[type="date"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    .filter-item input[type="checkbox"] {
+      margin-right: 10px;
+    }
+
+    .filter-item ul {
+      list-style-type: none;
+      padding: 0;
+      max-height: 120px; /* Yüksekliği ayarla */
+      overflow-y: auto; /* Dikey kaydırma */
+    }
+    .product-image {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 10px; /* Köşeleri yuvarlamak için */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hafif bir gölge eklemek için */
+      object-fit: cover; /* Görselin kutuya sığmasını sağlar */
+    }
+
+    .filter-item ul li {
+      display: flex;
+      align-items: center; /* Checkbox ve label dikeyde hizalanır */
+      padding: 5px;
+    }
+
+    /* Fiyata Göre Filtreleme */
+    .filter-item input[type="number"] {
+      width: calc(50% - 5px);
+      margin-right: 10px;
+    }
+
+    .filter-item input[type="number"]:last-of-type {
+      margin-right: 0;
+    }
+
+    /* Hover ve Focus Efektleri */
+    .filter-item input[type="text"]:focus,
+    .filter-item input[type="number"]:focus,
+    .filter-item input[type="date"]:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    .filter-item ul li:hover {
+      background-color: #f1f1f1;
+      cursor: pointer;
+    }
+
+    /* Kaydırma Çubuğu Stilini Geliştirme */
+    .filter-item ul::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .filter-item ul::-webkit-scrollbar-thumb {
+      background-color: #888;
+      border-radius: 10px;
+    }
+
+    .filter-item ul::-webkit-scrollbar-thumb:hover {
+      background-color: #555;
+    }
+
+    /* Gönder Butonu */
+    .filter-section button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      border: none;
+      color: white;
+      font-size: 1em;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .filter-section button:hover {
+      background-color: #0056b3;
+    }
+
+  </style>
+
+</head>
+<body >
+<div th:replace="~{fragments/header :: headerFragment}"></div>
+
+<div  class="profile-container">
+  <h1>User Profile</h1>
+
+  <div class="tab-container">
+    <!-- Sol Taraf: Kategoriler -->
+    <div class="tabs">
+      <div class="tab active" onclick="showTab('general')">Genel</div>
+      <div class="tab" onclick="showTab('password-change')">Şifre Değiştir</div>
+      <div class="tab" onclick="showTab('products-section')">Listelediğim Ürünler</div>
+      <div class="tab" onclick="showTab('purchased-products-section')">Kazandığım Açık Arttırmalar</div>
+      <div class="tab" onclick="showTab('continuing-products-section')">Teklifimin Devam Ettiği Açık Arttırmalar</div>
+    </div>
+
+    <!-- Sağ Taraf: İçerik -->
+    <div class="tab-content">
+      <!-- Genel Bilgiler -->
+      <div id="general" class="tab-pane">
+        <form th:action="@{/profilePage}" th:object="${user}" method="post">
+          <div class="form-group">
+            <label for="us" class="label">Ad</label>
+            <input id="us" th:field="*{name}" th:placeholder="${user.username}" type="text" class="input" required>
+          </div>
+
+          <div class="form-group">
+            <label for="surname">Soyad</label>
+            <input type="text" id="surname" th:placeholder="${user.surname}" th:field="*{surname}" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" th:placeholder="${user.userMailAdress}" th:field="*{userMailAdress}" required>
+          </div>
+
+          <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" th:value="${user.username}" readonly class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="balance">Bakiye</label>
+            <input type="text" id="balance" name="username" th:value="${user.balance}" readonly class="form-control">
+          </div>
+
+          <div class="form-group">
+            <button type="submit" name="action" value="change" class="btn">Profili Güncelle</button>
+          </div>
+
+          <div th:if="${updateMessage}" class="alert alert-success" role="alert">
+            <span th:text="${updateMessage}"></span>
+          </div>
+        </form>
+      </div>
+
+      <!-- Şifre Değiştirme -->
+      <div id="password-change" class="tab-pane hidden">
+        <form th:action="@{/profilePage}" method="post">
+          <div class="form-group">
+            <label for="password">Yeni Şifre</label>
+            <input type="password" id="password" name="password" required>
+          </div>
+
+          <div class="form-group">
+            <label for="passwordRepeat">Şifreyi Tekrar Giriniz</label>
+            <input type="password" id="passwordRepeat" name="passwordRepeat" required>
+          </div>
+
+          <div class="form-group">
+            <button type="submit" name="action" value="changePasswordButton" class="btn">Şifreyi Güncelle</button>
+          </div>
+        </form>
+        <div th:if="${passwordMessage}" class="alert alert-danger" role="alert">
+          <span th:text="${passwordMessage}"></span>
+        </div>
+      </div>
+
+      <!-- Listelediğim Ürünler -->
+      <div id="products-section" class="tab-pane hidden">
+        <div class="products-section">
+          <div th:each="AuctionDTO : ${activeAuctions}" class="product-box">
+            <img class="product-image" th:src="'data:image/jpg;base64,' + ${AuctionDTO.base64Image}" alt="Product Image" />
+            <button class="product-name" th:text="${AuctionDTO.auction.product.productName}" th:attr="data-productname=${AuctionDTO.auction.product.productId}">
+              Ürün Adı
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Teklifimin Devam Ettiği Açık Arttırmalar -->
+      <div id="continuing-products-section" class="tab-pane hidden">
+        <div class="products-section">
+          <div th:each="purchase : ${continuingOffer}" class="product-box">
+            <img class="product-image" th:src="'data:image/jpg;base64,' + ${purchase.base64Image}" alt="Product Image" />
+            <button class="product-name" th:text="${purchase.auction.product.productName}" th:attr="data-productname=${purchase.auction.product.productId}">
+              Ürün Adı
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Satın Aldığım Ürünler -->
+      <div id="purchased-products-section" class="tab-pane hidden">
+        <div class="products-section">
+          <div th:each="purchase : ${purchasedProducts}" class="product-box">
+            <img class="product-image" th:src="'data:image/jpg;base64,' + ${purchase.base64Image}" alt="Product Image" />
+            <button class="product-name" th:text="${purchase.auction.product.productName}" th:attr="data-productname=${purchase.auction.product.productId}">
+              Ürün Adı
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function showTab(tabId) {
+    // Tüm tab-panellerini gizle
+    document.getElementById('general').classList.add('hidden');
+    document.getElementById('password-change').classList.add('hidden');
+    document.getElementById('products-section').classList.add('hidden');
+    document.getElementById('purchased-products-section').classList.add('hidden'); // Yeni eklenen sekmeyi gizle
+    document.getElementById('continuing-products-section').classList.add('hidden'); // Yeni eklenen sekmeyi gizle
+
+    // İlgili tab-panelini göster
+    document.getElementById(tabId).classList.remove('hidden');
+
+    // Tüm tab'leri pasif hale getir
+    var tabs = document.querySelectorAll('.tab');
+    tabs.forEach(function(tab) {
+      tab.classList.remove('active');
+    });
+
+    // Seçili tab'i aktif hale getir
+    document.querySelector('[onclick="showTab(\'' + tabId + '\')"]').classList.add('active');
+
+    // Eğer "Listelediğim Ürünler", "Kazandığım Açık Arttırmalar" veya "Teklifimin Devam Ettiği Açık Arttırmalar" sekmeleri aktifse, butonlara tıklama işlevi ekle
+    if (tabId === 'products-section' || tabId === 'purchased-products-section' || tabId === 'continuing-products-section') {
+      const buttons = document.querySelectorAll('.product-name');
+      buttons.forEach(function(button) {
+        button.addEventListener('click', function(event) {
+          event.preventDefault();  // Varsayılan buton davranışını engelle
+          const productId = button.getAttribute('data-productname');
+          window.location.href = '/auction/' + productId; // Ürün sayfasına yönlendir
+        });
+      });
+    }
+  }
+</script>
+
+</body>
+</html>

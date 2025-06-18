@@ -1,0 +1,85 @@
+
+
+    /* Genel stil ayarları */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.navbar {
+    background-color: #333;
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
+.navbar-brand {
+    color: #ffffff !important;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding-left: 10px;
+}
+
+.navbar-nav > li > a {
+    color: #dddddd !important;
+    font-size: 1.2rem;
+    padding: 10px 15px;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav > li > a:hover,
+.navbar-nav > li.active > a {
+    color: #ffffff !important;
+    background-color: #007bff;
+    border-radius: 4px;
+}
+
+.navbar-form {
+    display: flex;
+    align-items: center;
+}
+
+.form-control {
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.btn-default {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    margin-left: 10px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-default:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    .navbar-header {
+        margin-bottom: 15px;
+    }
+
+    .navbar-form {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .form-control {
+        width: 100%;
+    }
+}
+

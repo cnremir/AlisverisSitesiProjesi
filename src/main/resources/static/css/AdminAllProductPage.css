@@ -1,0 +1,184 @@
+/* Genel Gövde Stil */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f7f6;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Konteyner */
+.container {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    align-items: flex-start; /* Filtre kutusunu sola yanaştır */
+}
+
+/* Filtre Kutusu */
+.filter-box {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-right: 20px; /* Sağ tarafa boşluk bırak */
+    width: 300px; /* Sabit genişlik */
+}
+
+/* Filtre Başlık */
+.filter-box h2 {
+    margin-top: 0;
+    font-size: 24px;
+    color: #0275d8;
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #f4f7f6;
+    padding-bottom: 10px;
+}
+
+/* Filtre Bölümleri */
+.filter-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Filtre Öğesi */
+.filter-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Filtre Etiketleri */
+.filter-item label {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+/* Girdi Alanları (Input) */
+.filter-item input[type="checkbox"],
+.filter-item input[type="date"],
+.filter-item input[type="number"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+/* Girdi Alanları (Checkbox) */
+.filter-item input[type="checkbox"] {
+    width: auto;
+    margin-right: 10px;
+}
+
+/* Girdi Alanı Odaklanma Durumu */
+.filter-item input[type="checkbox"]:focus,
+.filter-item input[type="date"]:focus,
+.filter-item input[type="number"]:focus {
+    border-color: #0275d8;
+}
+
+/* Filtreleme Butonu */
+.filter-box button {
+    background-color: #0275d8;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    margin-top: 10px;
+    text-transform: uppercase;
+}
+
+.filter-box button:hover {
+    background-color: #025aa5;
+}
+
+/* Ürünler Bölümü */
+.products-section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Her satırda 3 kutucuk */
+    gap: 20px;
+    flex: 1;
+}
+
+/* Ürün Kutusu */
+.product-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #025aa5;
+}
+
+.product-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Ürün Resmi */
+.product-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 2px solid #f4f7f6;
+}
+
+/* Ürün İsmi Butonu */
+.product-name {
+    display: block;
+    background-color: #0275d8;
+    color: white;
+    padding: 15px 0;
+    border: none;
+    border-radius: 0 0 12px 12px;
+    cursor: pointer;
+    font-size: 18px;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    text-align: center;
+}
+
+.product-name:hover {
+    background-color: #025aa5;
+}
+
+/* Hata Mesajı */
+.no-products-message {
+    text-align: center;
+    color: #e74c3c;
+    font-size: 18px;
+    margin-top: 30px;
+    display: none;
+}
+
+/* Mobil için uyumlu görünüm */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .products-section {
+        grid-template-columns: repeat(1, 1fr); /* Mobilde tek sütun */
+    }
+
+    .filter-box {
+        margin-bottom: 20px;
+    }
+}

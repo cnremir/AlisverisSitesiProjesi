@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/css/productDetailPage.css}">
+</head>
+<body>
+<div class="container">
+  <div class="products-section">
+    <div class="product-info">
+      <h2 class="product-name" th:text="${auction.product.productName}">Ürün Adı</h2>
+      <p class="product-description" th:text="${auction.product.productDescripton}">Ürün açıklaması burada olacak</p>
+    </div>
+
+    <!-- Sağ kısım: Ürün Görseli ve Kalan Süre -->
+    <div class="product-image-container">
+
+
+      <p class="adminremaining-time" th:text="${#temporals.format(auction.finishTime, 'dd-MM-yyyy HH:mm:ss')}">Bitiş Zamanı <span id="remaining-time">...</span></p>
+      <p class="adminsatici-bid">Satıcı: <span th:text="${auction.product.user.username}">Satıcı adı</span></p>
+      <p class="adminhighest-bid" th:text="${auction.currentPrice.intValue() != 0 ? 'En Yüksek Teklif: ' + auction.currentPrice.intValue() + ' TL' : 'Açık Arttırma Başlangıç Fiyatı ' + auction.product.productPrice.intValue() + ' TL'}"></p>
+    </div>
+  </div>
+
+  <p class="no-products-message" th:text="${errorMessage}"></p>
+</div>
+
+<div class="container">
+  <h1>İŞLEM GEÇMİŞİ</h1>
+  <table class="user-table">
+    <thead>
+    <tr>
+      <th></th>
+      <th>TEKLİF YAPAN KİŞİ ADI</th>
+      <th>TEKLİF ZAMANI</th>
+      <th>TEKLİF MİKTARI</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="of, iterStat : ${offer}">
+      <td th:text="${iterStat.index + 1}"></td>
+      <td th:text="${of.user.getUsername()}"></td>
+      <td th:text="${#temporals.format(of.amountOfferTime,'dd.MM.YYYY HH:mm')}"></td>
+      <td th:text="${of.amountOffer.intValue() + ' TL'}"></td>
+
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

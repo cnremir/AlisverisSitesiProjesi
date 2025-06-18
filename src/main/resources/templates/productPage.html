@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ürün Detay Sayfası</title>
+  <link rel="stylesheet" th:href="@{/css/productPage.css}">
+</head>
+<body>
+<div th:replace="~{fragments/header :: headerFragment}"></div>
+
+<!-- Ürün Detay Formu -->
+<form th:action="@{/auction/{productId}(productId=${auctionDto.auction.product.productId})}" method="post" class="product-detail-container">
+  <!-- Sol kısım: Ürün Bilgileri -->
+  <div class="product-info" th:object="${auctionDto}">
+    <h2 class="product-name" th:text="${auctionDto.auction.product.productName}">Ürün Adı</h2>
+    <pre class="product-description" th:text="${auctionDto.auction.product.productDescripton}"></pre>
+
+    <div class="bid-section" th:object="${offer}">
+      <label for="bid-amount">Teklif Yap:</label>
+      <input type="number" id="bid-amount" name="amountOffer" th:field="*{amountOffer}" placeholder="Teklifinizi girin" required>
+    </div>
+
+    <button type="submit" name="teklifButonu" class="submit-bid-button" th:attr="disabled=${bidDisabled ? 'disabled' : null}">Teklif Ver</button>
+    <p class="error-message" th:text="${error != null ? error : ''}"></p>
+  </div>
+
+  <!-- Sağ kısım: Ürün Görseli ve Kalan Süre -->
+  <div class="product-image-container">
+    <img class="product-image" th:src="'data:image/jpg;base64,' + ${auctionDto.base64Image}" alt="Product Image" />
+    <p class="remaining-time" th:data-time="${auctionDto.auction.kalanSure != null ? auctionDto.auction.kalanSure : 0}">Kalan süre: <span id="remaining-time">...</span></p>
+    <p class="satici-bid">Satıcı: <span th:text="${auctionDto.auction.product.user.username}">Satıcı adı</span></p>
+    <p class="highest-bid" th:text="${auctionDto.auction.currentPrice.intValue() != 0 ? 'En Yüksek Teklif: ' + auctionDto.auction.currentPrice.intValue() + ' TL' : 'Açık Arttırma Başlangıç Fiyatı ' + auctionDto.auction.product.productPrice.intValue() + ' TL'}"></p>
+
+  </div>
+
+</form>
+
+<!-- Yorumlar Bölümü -->
+<div th:if="${loggedInUserId != auctionDto.auction.product.user}">
+  <a th:href="@{/message/{userId}(userId=${auctionDto.auction.product.user.userId})}">
+    <button class="btn">Satıcıya Mesaj Gönder</button>
+  </a>
+</div>
+
+<div>
+  <h3>Yorumlar</h3>
+  <div class="comments-section">
+    <div th:if="${#lists.isEmpty(comments)}" class="no-comments-message">
+      <p>Henüz yorum yapılmamış. İlk yorumu siz yapın!</p>
+    </div>
+    <div th:each="comment : ${comments}" class="comment-container">
+      <div class="comment-header">
+        <span class="comment-author" th:text="${comment.user != null ? comment.user.username : 'Bilinmeyen Yazar'}">Yazar</span>
+        <span class="comment-date" th:text="${#temporals.format(comment.commentTime, 'dd-MM-yyyy HH:mm')}">Tarih</span>
+      </div>
+      <div class="comment-body">
+        <p th:text="${comment.commentText}">Yorum Metni</p>
+      </div>
+      <div class="comment-footer">
+        <button class="reply-button" type="button" th:onclick="'showReplyForm('+ ${comment.commentId} +')'">Cevapla</button>
+      </div>
+      <div id="replyFormContainer-${comment.commentId}" style="display:none;">
+        <form th:action="@{/auction/{productId}/addComment(productId=${auctionDto.auction.product.productId})}" method="POST">
+          <input type="hidden" name="parentCommentId" th:value="${comment.commentId}">
+          <textarea name="commentText" placeholder="Yorumunuzu yazın..."></textarea>
+          <button type="submit">Yorum Yap</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Genel Yorum Yapma Formu -->
+    <form th:action="@{/auction/{productId}/addComment(productId=${auctionDto.auction.product.productId})}" method="POST" class="comment-form">
+      <textarea name="commentText" placeholder="Yorumunuzu yazın..."></textarea>
+      <button type="submit">Yorum Yap</button>
+    </form>
+  </div>
+</div>
+
+<!-- Beğenebilirsin Bölümü -->
+<div>
+  <h3>Beğenebileceğiniz Diğer Ürünler</h3>
+  <div class="similar-auctions-section">
+    <div th:each="sos : ${similarAuctions}" class="similar-product-box">
+      <div class="similar-auction-card">
+        <a th:href="@{/auction/{productId}(productId=${sos.auction.product.productId})}">
+          <div th:if="${sos.base64Image != null}">
+            <img class="similar-product-img" th:src="'data:image/jpg;base64,' + ${sos.base64Image}" alt="Product Image" />
+          </div>
+          <p class="similar-remaining-time" th:data-time="${sos.auction.kalanSure != null ? sos.auction.kalanSure : 0}" th:id="'remaining-time-' + ${sos.auction.product.productId}"></p>
+          <p class="similar-highest-bid" th:text="${sos.auction.currentPrice.intValue() != 0 ? 'En Yüksek Teklif: ' + sos.auction.currentPrice.intValue() + ' TL' : 'Başlangıç Fiyatı: ' + sos.auction.product.productPrice.intValue() + ' TL'}"></p>
+          <button class="similar-product-name"
+                  th:text="${sos.auction.product.productName}"
+                  th:attr="data-productname=${sos.auction.product.productId}">
+            Ürün Adı
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const remainingTimeElement = document.querySelector('.remaining-time');
+    let totalSeconds = parseInt(remainingTimeElement.getAttribute('data-time'));
+
+    updateRemainingTime(totalSeconds);
+  });
+
+  function updateRemainingTime(totalSeconds) {
+    const element = document.getElementById('remaining-time');
+
+    function update() {
+      if (totalSeconds <= 0) {
+        element.innerText = 'Süre doldu';
+        return;
+      }
+
+      const hours = Math.floor(totalSeconds / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+
+      element.innerText = `${hours} saat ${minutes} dakika ${seconds} saniye`;
+      totalSeconds--;
+
+      setTimeout(update, 1000);
+    }
+
+    update();
+  }
+
+  function showReplyForm(commentId) {
+    console.log("showReplyForm called with commentId:", commentId);
+    var replyForm = document.getElementById("replyFormContainer-" + commentId);
+    console.log("ReplyForm Element: ", replyForm);
+
+    if (replyForm) {
+      replyForm.style.display = "block"; // Formu göster
+    } else {
+      console.error("Reply form not found!");
+    }
+  }
+</script>
+
+</body>
+</html>

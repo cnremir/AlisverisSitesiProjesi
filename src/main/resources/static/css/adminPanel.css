@@ -1,0 +1,161 @@
+/* Genel Ayarlar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    padding: 20px;
+}
+
+/* Konteyner ve Bölüm Stilleri */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.product-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px; /* Köşeleri yuvarlamak için */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hafif bir gölge eklemek için */
+    object-fit: cover; /* Görselin kutuya sığmasını sağlar */
+    margin-bottom: 20px;
+}
+
+.products-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* Ürün Kutusu Stili */
+.product-box {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Ürün Resmi Stili */
+.product-img {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    object-fit: cover;
+    margin-bottom: 50px;
+    border-radius: 5px;
+}
+
+/* Kalan Süre ve En Yüksek Teklif Stili */
+.remaining-time,
+.highest-bid {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.remaining-time {
+    color: #d9534f;
+    font-weight: bold;
+}
+
+.highest-bid {
+    color: #5cb85c;
+    font-weight: bold;
+}
+
+/* Ürün Adı Butonu Stili */
+.product-name {
+    display: block;
+    background-color: #0275d8;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease;
+
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content; /* Adjusts width to fit the content */
+}
+
+
+.product-name:hover {
+    background-color: #025aa5;
+}
+
+/* Kabul Et ve Reddet Butonları Stili */
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.accept-button,
+.reject-button {
+    flex: 1;
+    padding: 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.accept-button {
+    background-color: #5cb85c;
+    color: white;
+}
+
+.accept-button:hover {
+    background-color: #4cae4c;
+}
+
+.reject-button {
+    background-color: #d9534f;
+    color: white;
+}
+
+.reject-button:hover {
+    background-color: #c9302c;
+}
+.no-products-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Yükseklik tam ekran yapılıyor */
+    font-size: 32px; /* Yazı boyutu büyütülüyor */
+    font-weight: bold; /* Yazı kalın yapılıyor */
+    color: #333; /* Yazı rengi */
+    text-align: center; /* Ortalı */
+}
+
+
+/* Responsive Tasarım */
+@media (max-width: 768px) {
+    .products-section {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .products-section {
+        grid-template-columns: 1fr;
+    }
+}
+

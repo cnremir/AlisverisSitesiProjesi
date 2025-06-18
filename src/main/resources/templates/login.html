@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login Page</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/loginPage.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="login-wrap">
+    <div class="login-html">
+        <input id="tab-1" type="radio" name="tab" class="sign-in" checked>
+        <label for="tab-1" class="tab">Sign In</label>
+        <input id="tab-2" type="radio" name="tab" class="sign-up">
+        <label for="tab-2" class="tab">Sign Up</label>
+
+        <div class="login-form">
+            <!-- Sign In Form --><div class="login-container">
+            <div class="login-box">
+                <h1>Welcome</h1>
+                <div class="logo-box">
+                    <span class="logo">A</span>
+                </div>
+                <!-- Login form -->
+                <form id="login-form" action="/admin/login" method="post">
+                    <div class="input-group">
+                        <input type="email" id="username" name="username" placeholder="Email" required>
+                    </div>
+                    <div class="input-group password-group">
+                        <input type="password" id="password" name="password" placeholder="Password" required>
+                        <span class="toggle-password">👁️</span>
+                    </div>
+                    <button type="submit" class="login-button">LOGIN</button>
+                </form>
+                <p id="error-message" style="color: red; display: none;">Invalid credentials. Please try again.</p>
+            </div>
+        </div>
+
+            <div class="sign-in-htm">
+                <form th:action="@{/login}" method="post" th:object="${user}">
+                    <div class="group">
+                        <label for="username" class="label">Username</label>
+                        <input id="us" th:field="*{username}" type="text" class="input" required>
+                    </div>
+                    <div class="group">
+                        <label for="password" class="label">Password</label>
+                        <input id="pass" th:field="*{password}" type="password" class="input" data-type="password" required>
+                    </div>
+                    <div class="group">
+                        <input id="check" type="checkbox" class="check" checked>
+                        <label for="check"><span class="icon"></span> Keep me Signed in</label>
+                    </div>
+                    <div class="group">
+                        <input type="submit" class="button" value="Sign In">
+                    </div>
+                </form>
+            </div>
+
+            <!-- Sign Up Form -->
+            <div class="sign-up-htm">
+                <form th:action="@{/register}" method="post" th:object="${user}">
+                    <div class="group">
+                        <label for="username" class="label">Ad</label>
+                        <input id="name" th:field="*{name}" type="text" class="input" required>
+                    </div>
+                    <div class="group">
+                        <label for="username" class="label">Soyad</label>
+                        <input id="surname" th:field="*{surname}" type="text" class="input" required>
+                    </div>
+                    <div class="group">
+                        <label for="username" class="label">Kullanıcı Adı</label>
+                        <input id="username" th:field="*{username}" type="text" class="input" required>
+                    </div>
+                    <div class="group">
+                        <label for="password" class="label">Şifre</label>
+                        <input id="password" th:field="*{password}" type="password" class="input" data-type="password" required>
+                    </div>
+                    <div class="group">
+                        <label for="username" class="label">Mail Adresi</label>
+                        <input id="email" th:field="*{userMailAdress}" type="email" class="input" required>
+                    </div>
+                    <div class="group">
+                        <input type="submit" class="button" value="Sign Up">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

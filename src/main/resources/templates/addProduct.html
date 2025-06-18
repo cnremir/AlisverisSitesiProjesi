@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ürün Ekleme Formu</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e9ecef;
+            margin: 0;
+            padding: 0;
+            color: #495057;
+        }
+
+        .container {
+            width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-radius: 12px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #343a40;
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #495057;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="file"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: all 0.3s ease-in-out;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="file"]:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+        }
+
+        textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        select {
+            appearance: none;
+            background-color: #ffffff;
+        }
+
+        select:focus {
+            border-color: #007bff;
+        }
+
+        option {
+            padding: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .btn:active {
+            background-color: #003d80;
+            transform: scale(0.98);
+        }
+
+        .form-control[readonly] {
+            background-color: #e9ecef;
+            color: #495057;
+            cursor: not-allowed;
+        }
+
+        ::placeholder {
+            color: #6c757d;
+            opacity: 1;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                width: 90%;
+                margin: 20px auto;
+                padding: 20px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<div th:replace="fragments/header :: headerFragment"></div>
+
+<div class="container">
+    <h2>Ürün Ekleme Formu</h2>
+
+    <!-- Thymeleaf Form -->
+    <form th:action="@{/addProduct}" method="post" enctype="multipart/form-data" th:object="${product}">
+        <div class="form-group">
+            <label for="productName">Ürün Adı</label>
+            <input type="text" id="productName" th:field="*{productName}" placeholder="Ürün adını girin" required>
+        </div>
+
+        <div class="form-group">
+            <label for="productDescription">Ürün Açıklaması</label>
+            <textarea id="productDescription" th:field="*{productDescripton}" placeholder="Ürün açıklamasını girin"
+                      required></textarea>
+        </div>
+
+        <div class="form-group" th:object="${auction}">
+            <label for="productFinishTime">Bitiş Zamanı</label>
+            <input type="datetime-local" id="productFinishTime" th:field="*{finishTime}"
+                   placeholder="Bitiş zamanını seçin" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label for="productPrice">Ürün Fiyatı</label>
+            <input type="number" id="productPrice" th:field="*{productPrice}" placeholder="Ürün fiyatını girin"
+                   step="0.01" required>
+        </div>
+
+
+        <div class="form-group" th:object="${user}">
+            <label for="Satıcı">Satıcı</label>
+            <input type="text" id="Satıcı" th:placeholder="${user.username}" readonly class="form-control">
+        </div>
+
+        <!-- Üst Kategori Seçimi -->
+        <label for="parentCategory">Üst Kategori</label>
+        <select id="parentCategory" name="categoryId" required>
+            <option value="" disabled selected>Üst Kategori Seçin</option>
+            <option th:each="category : ${categories}"
+                    th:value="${category.categoryId}"
+                    th:selected="${selectedCategoryId == category.categoryId}"
+                    th:text="${category.categoryName}">
+            </option>
+        </select>
+
+        <!-- Alt Kategori Seçimi -->
+        <label for="subCategory">Alt Kategori</label>
+        <select id="subCategory" name="subCategoryId" required>
+            <option value="" disabled selected>Alt Kategori Seçin</option>
+        </select>
+
+        <script>
+            document.getElementById('parentCategory').addEventListener('change', function() {
+                var categoryId = this.value;
+
+                fetch('/getSubCategories?categoryId=' + categoryId)
+                    .then(response => response.json())
+                    .then(data => {
+                        var subCategorySelect = document.getElementById('subCategory');
+                        subCategorySelect.innerHTML = ''; // Eski seçenekleri temizle
+                        console.log(subCategory);
+                        data.forEach(function(subCategory) {
+                            var option = document.createElement('option');
+                            option.value = subCategory.subCategoryId;
+                            option.text = subCategory.subCategoryName;
+                            subCategorySelect.appendChild(option);
+                        });
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
+        </script>
+
+        <div class="form-group">
+            <label for="image">Ürün Resmi Yükle</label>
+            <input type="file" id="image" name="image" accept="image/*"  class="form-control">
+        </div>
+
+        <button type="submit" class="btn">Ürünü Ekle</button>
+        <div th:if="${error}" th:text="${error}" style="color: red;"></div>
+    </form>
+</div>
+
+</body>
+</html>

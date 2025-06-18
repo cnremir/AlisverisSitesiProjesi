@@ -1,0 +1,167 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.chat-wrapper {
+    display: flex;
+    width: 90%;
+    max-width: 1200px;
+    height: 90vh;
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.user-list {
+    width: 25%;
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-right: 1px solid #ddd;
+}
+
+.user-list h3 {
+    margin-bottom: 20px;
+    color: #673ab7;
+    text-align: center;
+}
+
+.user-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.user-list li {
+    margin-bottom: 15px;
+}
+
+.user-list a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    padding: 10px 15px;
+    display: block;
+    background-color: #e1ffc7;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.user-list a:hover {
+    background-color: #d0f0b3;
+}
+
+.chat-container {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.no-messages {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Tüm alanı kaplasın */
+    font-size: 50px;
+    color: #333;
+    text-align: center;
+}
+
+.chat-header {
+    background-color: #673ab7;
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+.chat-box {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.message {
+    max-width: 60%;
+    padding: 10px 15px;
+    border-radius: 20px;
+    display: inline-block;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.message.sent {
+    align-self: flex-end;
+    background-color: #e1ffc7;
+    border-bottom-right-radius: 0;
+}
+
+.message.received {
+    align-self: flex-start; /* Sola hizala */
+    background-color: #f1f1f1;
+    color: black; /* Yazı rengini siyah yap */
+    border-bottom-left-radius: 0;
+    margin-left: 0; /* Solda kalsın */
+    margin-right: auto; /* Sağa boşluk bırak */
+}
+
+
+.message-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.message-time {
+    font-size: 12px;
+    text-align: right;
+    color: gray;
+    margin-top: 5px;
+}
+
+.chat-input {
+    background-color: #f4f4f4;
+    padding: 20px;
+    display: flex;
+    border-top: 1px solid #ddd;
+}
+
+.chat-input form {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+}
+
+.chat-input input {
+    flex-grow: 1;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    outline: none;
+}
+
+.chat-input button {
+    padding: 10px 20px;
+    border-radius: 20px;
+    background-color: #673ab7;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.chat-input button:hover {
+    background-color: #5629a6;
+}

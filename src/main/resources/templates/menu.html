@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link rel="stylesheet" th:href="@{/css/menu.css}">
+</head>
+
+<body>
+<div th:fragment="header">
+  <!-- Buraya menü öğelerini yerleştirin -->
+  <nav class="navbar">
+    <div class="container">
+      <ul class="menu">
+        <li><a th:href="@{/addProduct}">Ürün Ekle</a></li>
+        <li><a th:href="@{/profilePage}">Profil</a></li>
+      </ul>
+    </div>
+  </nav>
+</div>
+</body>
+</html>

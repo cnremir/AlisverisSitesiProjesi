@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ürün Detay Sayfası</title>
+  <link rel="stylesheet" th:href="@{/css/adminProductPage.css}">
+</head>
+<body>
+<header th:replace="fragments/adminHeader :: adminHeaderFragment"></header>
+
+
+<!-- Form etiketi ile sarmalayalım -->
+<form th:action="@{/adminPanel/{productId}(productId=${auctionDTO.auction.product.productId})}" method="post" class="product-detail-container" th:object="${auctionDTO}">
+  <!-- Sol kısım: Ürün Bilgileri -->
+  <div class="product-info">
+    <h2 class="product-name" th:text="${auctionDTO.auction.product.productName}">Ürün Adı</h2>
+    <p class="product-description" th:text="${auctionDTO.auction.product.productDescripton}">Ürün açıklaması burada olacak</p>
+  </div>
+
+  <!-- Sağ kısım: Ürün Görseli ve Kalan Süre -->
+  <div class="product-image-container">
+    <img class="product-image" th:src="'data:image/jpg;base64,' + ${auctionDTO.base64Image}" alt="Product Image" />
+
+    <p class="adminremaining-time" th:text="${#temporals.format(auctionDTO.auction.finishTime, 'dd-MM-yyyy HH:mm:ss')}">Bitiş Zamanı <span id="remaining-time">...</span></p>
+    <p class="adminsatici-bid">Satıcı: <span th:text="${auctionDTO.auction.product.user.username}">Satıcı adı</span></p>
+    <p class="adminhighest-bid" th:text="${auctionDTO.auction.currentPrice.intValue() != 0 ? 'En Yüksek Teklif: ' + auctionDTO.auction.currentPrice.intValue() + ' TL' : 'Açık Arttırma Başlangıç Fiyatı ' + auctionDTO.auction.product.productPrice.intValue() + ' TL'}"></p>
+  </div>
+
+  <button class="button" name="button" value="confirmButton" type="submit">Onayla</button>
+  <button class="button" name = "button" value="refuseButton" type ="submit">Reddet</button>
+</form>
+
+<script>
+  // Kalan süre hesaplama fonksiyonunu eklemek isterseniz buraya koyabilirsiniz
+</script>
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ürün Listesi</title>
+  <link rel="stylesheet" th:href="@{/css/adminPanel.css}">
+
+
+</head>
+<body>
+<header th:replace="fragments/adminHeader :: adminHeaderFragment"></header>
+
+<div class="container">
+  <div class="products-section">
+    <div th:each="auctionDTO : ${pendingAuction}" class="product-box">
+      <!-- Eğer request içinde product varsa -->
+
+
+      <p class="remaining-time" th:data-time="${auctionDTO.auction.kalanSure != null ? auctionDTO.auction.kalanSure : 0}" th:id="'remaining-time-' + ${auctionDTO.auction.product.productId}"></p>
+
+      <p class="highest-bid" th:text="${auctionDTO.auction.currentPrice.intValue() != 0 ? 'En Yüksek Teklif: ' + auctionDTO.auction.currentPrice.intValue() + ' TL' : 'Başlangıç Fiyatı: ' + auctionDTO.auction.product.productPrice.intValue() + ' TL'}"></p>
+      <img class="product-image" th:src="'data:image/jpg;base64,' + ${auctionDTO.base64Image}" alt="Product Image" />
+
+      <button class="product-name"
+              th:text="${auctionDTO.auction.product.productName}"
+              th:attr="data-id=${auctionDTO.auction.product.productId}">
+        Ürün Adı
+      </button>
+
+
+      <!-- Kabul Et ve Reddet Butonları -->
+
+        <form id="productForm" action="/adminPanel" method="POST">
+          <input type="hidden" id="productIdInput" name="productId" value="">
+          <input type="hidden" id="actionInput" name="action" value="">
+          <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+          <!-- Kabul Et ve Reddet Butonları -->
+          <form action="/your-endpoint" method="POST">
+            <div class="action-buttons">
+              <button class="accept-button" name="action" th:attr="data-id=${auctionDTO.auction.product.productId}" th:text="'Kabul Et'" value="confirm"></button>
+              <button class="reject-button" name="action" th:attr="data-id=${auctionDTO.auction.product.productId}" th:text="'Reddet'" value="refuse"></button>
+            </div>
+          </form>
+
+        </form>
+    </div>
+  </div>
+
+  <p class="no-products-message" th:text="${errorMessage}"></p>
+</div>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+
+    const buttons = document.querySelectorAll('.product-name');
+    buttons.forEach(function(button) {
+      button.addEventListener('click', function() {
+        const productId = button.getAttribute('data-id'); // productId'yi data-id'den al
+        window.location.href = '/adminPanel/' + productId; // adminPanel/productId yoluna git
+      });
+    });
+  });
+  document.querySelectorAll('button').forEach(button => {
+    button.addEventListener('click', function(event) {
+      event.preventDefault(); // Sayfanın yeniden yüklenmesini engeller
+
+      const productId = this.getAttribute('data-id');
+      const action = this.classList.contains('accept-button') ? 'confirm' : 'refuse';
+
+      document.getElementById('productIdInput').value = productId;
+      document.getElementById('actionInput').value = action;
+
+      // Formu elle gönder
+      document.getElementById('productForm').submit();
+    });
+  });
+
+
+  function updateRemainingTime(elementId, totalSeconds) {
+    const element = document.getElementById(elementId);
+
+    function update() {
+      if (totalSeconds <= 0) {
+        element.innerText = 'Süre doldu';
+        return;
+      }
+
+      const hours = Math.floor(totalSeconds / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+
+      element.innerText = `Kalan süre: ${hours} saat ${minutes} dakika ${seconds} saniye`;
+      totalSeconds--;
+
+      setTimeout(update, 1000);
+    }
+
+    update();
+  }
+</script>
+</body>
+</html>

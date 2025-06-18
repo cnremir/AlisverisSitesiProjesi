@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ürün Listesi</title>
+  <link rel="stylesheet" th:href="@{/css/AdminAllProductPage.css}">
+</head>
+<body>
+<h1 class="product-info"> TÜM ÜRÜNLER </h1>
+<header th:replace="fragments/adminHeader :: adminHeaderFragment"></header>
+
+<div class="container">
+  <div class="filter-box">
+    <h2>FİLTRELE</h2>
+
+    <!-- Form Başlangıcı -->
+    <form method="post" action="/admin/products/filter" onsubmit="return checkForm()">
+      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+      <div class="filter-section">
+        <div class="filter-item">
+          <input type="checkbox" name="activeAuction" id="showBids" value="true">
+          <label for="showBids">Açık Arttırması Devam Eden Ürünler</label>
+        </div>
+      </div>
+      <button type="submit">Filtrele</button>
+    </form>
+
+    <script>
+      function checkForm() {
+        alert("Form gönderiliyor!");
+        return true;  // Formun gönderilmesine izin ver
+
+      }
+
+      document.addEventListener('DOMContentLoaded', function() {
+        console.log("JavaScript yüklendi ve çalışıyor!");
+      });
+
+    </script>
+  </div>
+
+  <div class="products-section">
+    <div th:each="auctionDto : ${auctionDTOS}" class="product-box">
+      <img class="product-img" th:src="'data:image/jpg;base64,' + ${auctionDto.base64Image}" alt="Product Image" />
+      <button class="product-name"
+              th:text="${auctionDto.auction.product.productName}"
+              th:attr="data-id=${auctionDto.auction.product.productId}">
+        Ürün Adı
+      </button>
+      <form id="productForm" method="POST">
+        <input type="hidden" id="productIdInput" name="productId" value="">
+        <input type="hidden" id="actionInput" name="action" value="">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+      </form>
+    </div>
+  </div>
+
+  <p class="no-products-message" th:text="${errorMessage}"></p>
+</div>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+
+    const buttons = document.querySelectorAll('.product-name');
+    buttons.forEach(function(button) {
+      button.addEventListener('click', function() {
+        const productId = button.getAttribute('data-id'); // productId'yi data-id'den al
+        window.location.href = '/admin/products/'+ productId; // adminPanel/productId yoluna git
+      });
+    });
+  });
+  document.querySelectorAll('button').forEach(button => {
+    button.addEventListener('click', function(event) {
+      event.preventDefault(); // Sayfanın yeniden yüklenmesini engeller
+
+      const productId = this.getAttribute('data-id');
+      const action = this.classList.contains('accept-button') ? 'confirm' : 'refuse';
+
+      document.getElementById('productIdInput').value = productId;
+      document.getElementById('actionInput').value = action;
+
+      // Formu elle gönder
+      document.getElementById('productForm').submit();
+    });
+  });
+</script>
+</body>
+</html>

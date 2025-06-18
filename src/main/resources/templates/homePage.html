@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ürün Listesi</title>
+  <link rel="stylesheet" th:href="@{/css/homePage.css}">
+
+</head>
+<body>
+<div th:replace="~{fragments/header :: headerFragment}"></div>
+
+<div class="container">
+  <!-- Filtreleme İşlemleri Kutusu -->
+  <div class="filter-box">
+    <h2>FİLTRELE</h2>
+
+    <!-- Form Başlangıcı -->
+    <form method="post" action="/filter" th:object="${category}">
+      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+      <div class="filter-section">
+        <div class="filter-item">
+          <ul>
+            <li th:each="category : ${categories}">
+              <input type="checkbox" th:name="'brands'" th:value="${category.categoryName}" th:id="${category.categoryName}">
+              <label th:for="${category.categoryName}" th:text="${category.categoryName}"></label>
+            </li>
+          </ul>
+        </div>
+        <div class="filter-item">
+          <input type="hidden" name="showBidsHidden" value="false">
+          <input type="checkbox" name="showBids" id="showBids" value="true">
+          <label for="showBids">Listelediğim Ürünlerim</label>
+        </div>
+        <div class="filter-item">
+          <input type="hidden" name="myProductHidden" value="false">
+          <input type="checkbox" name="myProduct" id="myProduct" value="true">
+          <label for="showBids">Teklif verdiğim ürünler</label>
+        </div>
+
+        <div class="filter-item">
+          <label for="dateFilter">Son Tarihe Göre</label>
+          <input type="date" id="dateFilter" name="dateFilter">
+        </div>
+
+        <!-- Fiyata Göre Filtreleme -->
+        <div class="filter-item">
+          <label for="priceMin">Fiyat (Min)</label>
+          <input type="number" id="priceMin" name="priceMin" placeholder="En düşük fiyat" min="0">
+
+          <label for="priceMax">Fiyat (Max)</label>
+          <input type="number" id="priceMax" name="priceMax" placeholder="En yüksek fiyat" min="0">
+        </div>
+      </div>
+      <button type="submit">Filtrele</button>
+    </form>
+
+  </div>
+
+  <!-- Ürünler Bölümü -->
+  <div class="products-section">
+    <div th:each="actionDto : ${activeAuctions}" class="product-box">
+      <div class="label-container" th:if="${actionDto.auction.showBox}">
+        <p class="new-label" th:text="${actionDto.auction.boxMessage}"></p>
+      </div>
+      <div th:if="${actionDto.base64Image != null}">
+        <img class="product-img" th:src="'data:image/jpg;base64,' + ${actionDto.base64Image}" alt="Product Image" />
+      </div>
+
+      <!-- Eğer productImage mevcut değilse varsayılan resmi göster -->
+      <img th:unless="${actionDto.base64Image != null}"
+           th:src="@{/images/8up58kxgtr3c1.jpg}"
+           alt="Varsayılan Resim" class="product-img">
+
+      <p class="remaining-time" th:data-time="${actionDto.auction.kalanSure != null ? actionDto.auction.kalanSure : 0}" th:id="'remaining-time-' + ${actionDto.auction.product.productId}"></p>
+      <p class="highest-bid" th:text="${actionDto.auction.currentPrice.intValue() != 0 ? 'En Yüksek Teklif: ' + actionDto.auction.currentPrice.intValue() + ' TL' : 'Başlangıç Fiyatı: ' + actionDto.auction.product.productPrice.intValue() + ' TL'}"></p>
+      <button class="product-name"
+              th:text="${actionDto.auction.product.productName}"
+              th:attr="data-productname=${actionDto.auction.product.productId}">
+        Ürün Adı
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const elements = document.querySelectorAll('.remaining-time');
+    elements.forEach(function(element) {
+      const totalSeconds = parseInt(element.getAttribute('data-time'));
+      const elementId = element.getAttribute('id');
+      updateRemainingTime(elementId, totalSeconds);
+    });
+
+    const buttons = document.querySelectorAll('.product-name');
+    buttons.forEach(function(button) {
+      button.addEventListener('click', function() {
+        const productName = button.getAttribute('data-productname');
+        window.location.href = '/auction/' + productName;
+      });
+    });
+  });
+
+  function updateRemainingTime(elementId, totalSeconds) {
+    const element = document.getElementById(elementId);
+
+    function update() {
+      if (totalSeconds <= 0) {
+        element.innerText = 'Süre doldu';
+        return;
+      }
+
+      const hours = Math.floor(totalSeconds / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+
+      element.innerText = `Kalan süre: ${hours} saat ${minutes} dakika ${seconds} saniye`;
+      totalSeconds--;
+
+      setTimeout(update, 1000);
+    }
+
+    update();
+  }
+</script>
+</body>
+</html>

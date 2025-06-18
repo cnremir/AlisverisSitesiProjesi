@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Message Screen</title>
+  <link rel="stylesheet" th:href="@{/css/messageCss.css}">
+</head>
+<body>
+<div class="chat-wrapper">
+  <div class="user-list">
+    <h3>MESAJ KUTUM</h3>
+    <ul>
+      <li th:each="user : ${users}">
+        <a th:href="@{/message/{userId}(userId=${user.userId})}" th:text="${user.username}">Username</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Sağ taraf: mesajlaşma ekranı -->
+  <div class="chat-container">
+    <div class="chat-header">
+      <h2><span th:text="${chatPartner}"></span> ile konuşuyorsunuz </h2>
+    </div>
+    <div class="chat-box" id="chat-box">
+      <div th:if="${messages == null || #lists.isEmpty(messages)}" class="no-messages">
+        <p>Yan Taraftan sohbetini seçerek hemen mesajlaşmaya başla!</p>
+      </div>
+      <div th:if="${messages != null && !#lists.isEmpty(messages)}" th:each="message : ${messages}">
+        <div th:class="${message.getSenderUser().userId == loggedInUserId} ? 'message sent' : 'message received'">
+          <p th:text="${message.messageText}"></p>
+          <span class="message-time" th:text="${#temporals.format(message.createdAt, 'dd-MM-yyyy HH:mm')}"></span>
+        </div>
+      </div>
+    </div>
+    <div class="chat-input" th:if="${user != null}">
+      <form th:action="@{/sendMessage/{userId}(userId=${user.userId})}" method="post" th:object="${message}">
+        <input type="text" name="messageText" th:text="*{messageText}" placeholder="Buraya yazabilirsiniz..." required>
+        <button type="submit">Gönder</button>
+      </form>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

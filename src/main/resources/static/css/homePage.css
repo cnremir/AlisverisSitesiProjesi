@@ -1,0 +1,250 @@
+/* homePage.css */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.filter-box {
+    flex: 0 0 300px; /* Filtre kutusuna sabit genişlik veriyoruz */
+    max-width: 300px; /* Maksimum genişliği sabitliyoruz */
+    border: 1px solid #ccc; /* Kalınlık düşürüldü */
+    padding: 20px;
+    margin-right: 20px;
+}
+
+
+.filter-box h2 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+
+.products-section h2 {
+    margin-bottom: 20px;
+}
+
+.product-box {
+    background-color: white;
+    border: 1px solid #ddd; /* Kalınlık düşürüldü */
+    padding: 15px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: calc(33.333% - 20px); /* Üçlü dizilim için genişlik ayarlandı */
+    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 600px;/* Hareket ve gölge için geçişler eklendi */
+}
+
+.product-box:hover {
+    transform: translateY(-10px); /* Hover'da yukarı hareket sağlar */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Hover'da daha büyük gölge ekler */
+}
+.product-img {
+    width: 100%; /* Genişliği %100 yaparak kutuya tam oturmasını sağlıyoruz */
+    max-width: 200px; /* Resmin maksimum genişliğini artırıyoruz */
+    height: auto;
+    object-fit: contain; /* Resmin orantısını koruyarak kutuya sığmasını sağlar */
+    margin-bottom: 15px; /* Alttaki metinlere yer bırakmak için boşluk bırakıyoruz */
+}
+
+
+.product-name {
+    margin-top: 20px;
+    font-size: 18px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 20px;
+    cursor: pointer;
+}
+
+.product-name:hover {
+    background-color: #0056b3;
+}
+/* homePage.css */
+
+.highest-bid {
+    font-size: 18px; /* Metin boyutunu biraz artırıyoruz */
+    color: #28a745; /* Teklif metni için yeşil bir renk */
+    font-weight: bold; /* Metni kalın yaparak öne çıkarıyoruz */
+    margin-top: 10px; /* Üstteki elementten biraz boşluk bırakıyoruz */
+    padding: 10px; /* İç kısımda biraz boşluk bırakıyoruz */
+    background-color: #e6f8e0; /* Hafif yeşil bir arka plan ekleyerek belirgin hale getiriyoruz */
+    border: 1px solid #28a745; /* Yeşil renkli bir çerçeve */
+    border-radius: 5px; /* Kenarları yuvarlatıyoruz */
+    display: inline-block; /* Metni kutu içinde göstermek için inline-block yapıyoruz */
+}
+
+
+.remaining-time {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Ürünlerin her satırda 3'lü dizilimde görünmesi için grid ayarı */
+.products-section {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* Ürünleri sola yasla */
+    align-items: flex-start;
+    min-height: 400px;
+}
+
+
+.remaining-time {
+    font-size: 18px; /* Yazı boyutunu biraz artırıyoruz */
+    color: #dc3545; /* Kırmızı renk, zamanın önemini vurgulamak için */
+    font-weight: bold; /* Metni kalın yaparak dikkat çekiyoruz */
+    margin-top: 10px; /* Üstteki elementten biraz boşluk bırakıyoruz */
+    padding: 10px; /* İç kısımda biraz boşluk bırakıyoruz */
+    background-color: #f8d7da; /* Hafif kırmızı arka plan rengi */
+    border: 1px solid #dc3545; /* Kırmızı bir çerçeve ekliyoruz */
+    border-radius: 5px; /* Kenarları yuvarlatıyoruz */
+    display: inline-block; /* Metni kutu içinde göstermek için inline-block yapıyoruz */
+}
+
+#remaining-time {
+    color: #dc3545; /* Kalan süreyi kırmızı renkle vurguluyoruz */
+    font-weight: bold; /* Sürenin kalın görünmesini sağlıyoruz */
+}
+/* Genel Filtreleme Bölümü */
+.filter-section {
+    width: 250px; /* Filtre bölümünün genişliği */
+    padding: 20px;
+    background-color: #f9f9f9; /* Arka plan rengi */
+    border: 1px solid #ddd; /* Çerçeve rengi */
+    border-radius: 10px; /* Köşeleri yuvarlama */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Hafif gölge */
+}
+.label-container {
+    display: flex;
+    justify-content: flex-end; /* Sağa yaslar */
+    width: 100%; /* Konteyneri tam genişlik yapar */
+}
+
+.new-label {
+    font-size: 14px;
+    color: white;
+    background-color: #28a745;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-align: center;
+    border: 2px solid #1e7e34;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.filter-section h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Filtre Elemanları */
+.filter-item {
+    margin-bottom: 20px;
+}
+
+.filter-item label {
+    font-weight: bold;
+    font-size: 1em;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.filter-item input[type="text"],
+.filter-item input[type="number"],
+.filter-item input[type="date"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.filter-item input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.filter-item ul {
+    list-style-type: none;
+    padding: 0;
+    max-height: 120px; /* Yüksekliği ayarla */
+    overflow-y: auto; /* Dikey kaydırma */
+}
+
+.filter-item ul li {
+    display: flex;
+    align-items: center; /* Checkbox ve label dikeyde hizalanır */
+    padding: 5px;
+}
+
+/* Fiyata Göre Filtreleme */
+.filter-item input[type="number"] {
+    width: calc(50% - 5px);
+    margin-right: 10px;
+}
+
+.filter-item input[type="number"]:last-of-type {
+    margin-right: 0;
+}
+
+/* Hover ve Focus Efektleri */
+.filter-item input[type="text"]:focus,
+.filter-item input[type="number"]:focus,
+.filter-item input[type="date"]:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.filter-item ul li:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+/* Kaydırma Çubuğu Stilini Geliştirme */
+.filter-item ul::-webkit-scrollbar {
+    width: 6px;
+}
+
+.filter-item ul::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+}
+
+.filter-item ul::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+/* Gönder Butonu */
+.filter-section button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filter-section button:hover {
+    background-color: #0056b3;
+}

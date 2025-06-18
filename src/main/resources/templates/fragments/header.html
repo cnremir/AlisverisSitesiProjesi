@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Header Example</title>
+  <style>
+
+
+    /* Genel stil ayarları */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    .navbar {
+      background-color: #333;
+      border-radius: 5px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 10px;
+    }
+
+    .navbar-brand {
+      color: #ffffff !important;
+      font-size: 1.5rem;
+      font-weight: bold;
+      padding-left: 10px;
+    }
+
+    .navbar-nav > li > a {
+      color: #dddddd !important;
+      font-size: 1.2rem;
+      padding: 10px 15px;
+      transition: color 0.3s ease;
+    }
+
+    .navbar-nav > li > a:hover,
+    .navbar-nav > li.active > a {
+      color: #ffffff !important;
+      background-color: #007bff;
+      border-radius: 4px;
+    }
+
+    .navbar-form {
+      display: flex;
+      align-items: center;
+    }
+
+    .form-control {
+      width: 200px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .form-control:focus {
+      border-color: #007bff;
+      outline: none;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    .btn-default {
+      background-color: #007bff;
+      color: #ffffff;
+      border: none;
+      margin-left: 10px;
+      padding: 5px 10px;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-default:hover {
+      background-color: #0056b3;
+    }
+
+    @media (max-width: 768px) {
+      .navbar-header {
+        margin-bottom: 15px;
+      }
+
+      .navbar-form {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+
+      .form-control {
+        width: 100%;
+      }
+    }
+
+
+  </style>
+
+</head>
+<body>
+<header th:fragment="headerFragment">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item" th:class="${activePage == 'home'} ? 'nav-item active' : 'nav-item'">
+        <a class="nav-link" th:href="@{/login}">Home</a>
+      </li>
+      <li class="nav-item" th:class="${activePage == 'profilePage'} ? 'nav-item active' : 'nav-item'">
+        <a class="nav-link" th:href="@{/profilePage}">Profil Sayfası</a>
+      </li>
+      <li class="nav-item" th:class="${activePage == 'addProduct'} ? 'nav-item active' : 'nav-item'">
+        <a class="nav-link" th:href="@{/addProduct}">Ürün Ekle</a>
+      </li>
+      <li class="nav-item" th:class="${activePage == 'auction'} ? 'nav-item active' : 'nav-item'">
+        <a class="nav-link" th:href="@{/auction}">Ürünler</a>
+      </li>
+      <li class="nav-item" th:class="${activePage == 'MessagePage'} ? 'nav-item active' : 'nav-item'">
+        <a class="nav-link" th:href="@{/messages}">Mesajlar</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+</header>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

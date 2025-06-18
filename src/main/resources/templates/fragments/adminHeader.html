@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<body>
+<header th:fragment="adminHeaderFragment">
+    <div class="yan-menu">
+        <div class="menu-ögesi">
+            <a th:href="@{/adminPanel}">BEKLEYEN ÜRÜNLER</a>
+        </div>
+        <div class="menu-ögesi">
+            <a th:href="@{/admin/users}">KULLANICILAR LİSTESİ</a>
+        </div>
+        <div class="menu-ögesi">
+            <a th:href="@{/admin/products}">LİSTELENMİŞ ÜRÜNLER</a>
+        </div>
+    </div>
+</header>
+</body>
+</html>

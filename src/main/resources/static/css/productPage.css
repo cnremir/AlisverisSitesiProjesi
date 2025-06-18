@@ -1,0 +1,306 @@
+/* Ana konteyner */
+.product-detail-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    max-width: 1200px;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Ürün bilgileri bölümü */
+.product-info {
+    flex: 1 1 300px;
+    padding: 20px;
+    max-width: 600px;
+}
+
+.product-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.product-description {
+    font-size: 18px;
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f7f7f7;
+    border-left: 4px solid #007bff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Teklif bölümü */
+.bid-section label {
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.bid-section input {
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;
+    max-width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.submit-bid-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.submit-bid-button:hover {
+    background-color: #45a049;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* Ürün görseli bölümü */
+.product-image-container {
+    flex: 1 1 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+}
+
+.product-image {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+/* Satıcı ve teklif bilgileri */
+.satici-bid, .highest-bid, .remaining-time {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.satici-bid {
+    background-color: #e0e0e0;
+    color: #222;
+}
+
+.highest-bid {
+    background-color: #e6f8e0;
+    color: #28a745;
+    border: 1px solid #28a745;
+}
+
+.remaining-time {
+    background-color: #f8d7da;
+    color: #dc3545;
+    border: 1px solid #dc3545;
+}
+
+/* Yorumlar bölümü */
+.comments-section h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #333;
+    font-weight: bold;
+}
+
+.comment-container {
+    max-width: 600px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-left: 0; /* Ortalanmayı engelle */
+    text-align: left; /* Yorum kutularını sola hizala */
+}
+.comments-section {
+    text-align: left; /* Yorumları sola hizala */
+    margin-left: 0; /* Ortalanmayı engelle */
+    padding-left: 0;
+}
+
+.comment-header span {
+    font-size: 14px;
+    color: #555;
+}
+
+.comment-author {
+    font-weight: bold;
+    color: #333;
+}
+
+.comment-date {
+    float: right;
+    font-size: 12px;
+    color: #999;
+}
+
+.reply-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.reply-button:hover {
+    background-color: #45a049;
+}
+
+.comments-section textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.comments-section button {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.comments-section button:hover {
+    background-color: #2980b9;
+}
+
+/* Responsive düzen */
+@media (max-width: 768px) {
+    .product-detail-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .product-info, .product-image-container {
+        width: 100%;
+        max-width: none;
+    }
+
+    .submit-bid-button {
+        width: 100%;
+    }
+}
+.similar-auctions-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.similar-product-box {
+    flex: 1 1 calc(20% - 20px); /* Her satıra 5 ürün sığması için genişlik ayarlandı */
+    box-sizing: border-box;
+}
+
+.similar-auction-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    height: 350px; /* Kartlara sabit yükseklik verildi */
+}
+
+.similar-auction-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.similar-product-img {
+    width: 100%;
+    max-width: 150px; /* Resmi daha küçük yapmak için maksimum genişlik ayarlandı */
+    height: auto;
+    object-fit: contain;
+    margin-bottom: 15px;
+}
+
+.similar-highest-bid {
+    font-size: 25px;
+    color: #28a745;
+    font-weight: bold;
+    background-color: #e6f8e0;
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.similar-product-name {
+    font-size: 30px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    bottom: 15px; /* Butonu kartın altına sabitler */
+    left: 50%;
+    transform: translateX(-50%); /* Butonu yatayda ortalar */
+}
+
+.similar-product-name:hover {
+    background-color: #0056b3;
+}
+
+.similar-remaining-time {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Responsive ayarlar */
+@media (max-width: 1200px) {
+    .similar-product-box {
+        flex: 1 1 calc(25% - 20px); /* Daha küçük ekranlarda dört ürün */
+    }
+}
+
+@media (max-width: 768px) {
+    .similar-product-box {
+        flex: 1 1 calc(33.333% - 20px); /* Küçük ekranlarda üç ürün */
+    }
+}
+
+@media (max-width: 480px) {
+    .similar-product-box {
+        flex: 1 1 calc(50% - 20px); /* Daha küçük ekranlarda iki sütun */
+    }
+}
+
+@media (max-width: 320px) {
+    .similar-product-box {
+        flex: 1 1 calc(100% - 20px); /* Mobil ekranlarda tek sütun */
+    }
+}
