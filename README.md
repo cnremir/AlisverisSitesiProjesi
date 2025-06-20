@@ -1,68 +1,50 @@
-Açık Artırma Alışveriş Sistemi (Backend Odaklı)
+# 🛒 Açık Artırma Alışveriş Sistemi (Backend Odaklı)
 
+Bu proje, kullanıcıların ürünleri açık artırma usulüyle satışa çıkarabildiği ve teklif verebildiği bir e-ticaret sistemidir. Uygulama, **Spring Boot** ile geliştirilmiş RESTful bir **backend mimarisi** üzerine kuruludur. Sistem; **kullanıcı**, **admin** ve **teklif** rollerini destekleyen çok katmanlı bir yapıya sahiptir.
 
+---
 
-Bu proje kullanıcıların ürünleri açık artırma usulüyle satışa çıkarabildiği ve teklif verebildiği bir e-ticaret sistemidir. Uygulama, Spring Boot ile geliştirilmiş RESTful bir backend mimarisine sahiptir. Sistem; kullanıcı, teklif ve yönetim rollerini destekleyen bir yapıya sahiptir.
+## 🚀 Temel Özellikler (Kullanıcı Paneli)
 
-🚀 Temel Özellikler (Kullanıcı Paneli)
-🔐 Basic Authentication Tabanlı Kimlik Doğrulama
+- 🔐 **Basic Authentication** tabanlı kimlik doğrulama  
+- 📦 **Ürün Açık Artırma Sistemi**  
+  - Kullanıcı ürün ekleyebilir, mevcut ürünlere teklif verebilir  
+  - Kullanıcı, sadece kendi eklediği ürünleri **profil sayfasında** görüntüleyebilir  
+  - Her ürün için anlık **en yüksek teklif** dinamik olarak takip edilir  
 
-📦 Ürün Açık Artırma Sistemi:
+---
 
-Kullanıcılar ürün ekler, teklifler verir
+## 🧾 Profil Sayfası Özellikleri
 
-Kullanıcı kendi eklediği ürünleri anasayfada değil sadece profilinde görebilir
+- Teklif verilen ürünleri filtreleyebilme  
+- Kazanılan ürünlerin listelenmesi  
+- En yüksek teklif verilen ürünlerin takip edilmesi  
 
-Her ürün için anlık en yüksek teklifin takibi
+---
 
+## 🛡️ Admin Paneli Özellikleri
 
+### ✅ Ürün Onay Sistemi
+- Kullanıcıların eklediği ürünler admin onayından geçer  
+- Admin, ürünleri **onaylayabilir** veya **reddedebilir**  
 
-🧾 Profil Sayfası Özellikleri:
+### 📊 Kapsamlı Takip Paneli
+- Admin, tüm kullanıcıların **hangi ürünlere teklif verdiğini** görüntüleyebilir  
+- Her ürün için **detaylı teklif geçmişine** erişim sağlar  
 
-Teklif verilen ürünleri filtreleme
+### 🗑️ Ürün Yönetimi
+- Yayında olan ürünleri sistemden kaldırabilir  
+- Onaysız ürünleri silebilir  
 
-Kazanılan ürünleri görüntüleme
+---
 
-En yüksek teklif verilen ürünleri takip etme
+## 🧰 Kullanılan Teknolojiler
 
+- Java & Spring Boot  
+- Spring Security (Basic Auth)  
+- Spring Data JPA – MySQL  
+- RESTful API  
+- Thymeleaf (temel düzeyde frontend)  
+- Maven  
+- Postman / Swagger  
 
-
-🛡️ Admin Paneli Özellikleri
-✅ Ürün Onay Sistemi:
-
-Kullanıcıların eklediği ürünler admin onayından geçer
-
-Admin, ürünleri onaylayabilir veya reddedebilir
-
-
-
-📊 Kapsamlı Takip Paneli:
-
-Admin, tüm kullanıcıların hangi ürünlere teklif verdiğini görebilir
-
-Her ürün için detaylı teklif geçmişine erişebilir
-
-
-
-🗑️ Ürün Yönetimi:
-
-Satışta olan ürünleri yayından kaldırabilir
-
-Onaysız ürünleri sistemden silebilir
-
-
-
-🧰 Kullanılan Teknolojiler
-Java & Spring Boot
-
-Spring Security (Basic Auth)
-
-Spring Data JPA – MySQL
-
-RESTful API
-
-Thymeleaf
-
-Maven
-
-Postman / Swagger
